@@ -1,0 +1,48 @@
+package pe.idat.taxidriverkotlin.providers
+
+import android.net.Uri
+import android.util.Log
+import com.google.android.gms.tasks.Task
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageTask
+import com.google.firebase.storage.UploadTask
+import pe.idat.taxidriverkotlin.models.Driver
+import java.io.File
+
+class DriverProvider {
+
+    val db = Firebase.firestore.collection("Drivers")
+    val storage = FirebaseStorage.getInstance().reference.child("profile")
+
+    fun create(driver: Driver): Task<Void>{
+        return db.document(driver.id!!).set(driver)
+    }
+
+    fun uploadImage(id: String, file: File): StorageTask<UploadTask.TaskSnapshot> {
+        var fromFile = Uri.fromFile(file)
+        val riversRef = storage.child("$id.jpg")
+        val uploadTask = riversRef.putFile(fromFile)
+
+        return uploadTask.addOnFailureListener {
+            Log.d("STORAGE", "ERROR: ${it.message}")
+        }
+    }
+
+    fun getDriver(idDriver: String): Task<DocumentSnapshot> {
+        return db.document(idDriver).get()
+    }
+
+    fun update(driver: Driver): Task<Void> {
+        val map: MutableMap<String, Any> = HashMap()
+        map["name"] = driver?.name!!
+        map["lastName"] = driver?.lastName!!
+        map["phone"] = driver?.phone!!
+        map["brandCar"] = driver?.brandCar!!
+        map["colorCar"] = driver?.colorCar!!
+        map["plateNumber"] = driver?.plateNumber!!
+        return db.document(driver?.id!!).update(map)
+    }
+}

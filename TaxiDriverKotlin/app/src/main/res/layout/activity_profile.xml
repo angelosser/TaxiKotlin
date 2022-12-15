@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.ProfileActivity">
+    
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="150dp">
+        
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/teal_700"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="PERFIL DE USUARIO"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:textSize="22sp"
+            android:layout_marginTop="20dp"/>
+
+        <ImageView
+            android:id="@+id/imageViewBack"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:src="@drawable/ic_back"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="15dp"/>
+
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/circleImageProfile"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/ic_person"
+            app:civ_border_width="3dp"
+            app:civ_border_color="@color/white"
+            android:layout_gravity="bottom|center"
+            android:layout_marginBottom="35dp"/>
+
+        <TextView
+            android:id="@+id/textViewEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Email"
+            android:textColor="@color/black"
+            android:layout_gravity="bottom"
+            android:gravity="center"
+            android:textStyle="italic"
+            android:textSize="16sp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="10dp"/>
+        
+        
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="150dp">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            app:startIconDrawable="@drawable/ic_lock_white"
+            app:startIconTint="@color/black"
+            style="@style/EditTextGrey"
+            android:layout_marginTop="15dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textFieldName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nombre"
+                android:textColorHint="@color/black"
+                android:inputType="text"
+                android:textSize="13sp"
+                android:textColor="@color/black"
+                style="@style/EditTextGrey"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            app:startIconDrawable="@drawable/ic_little_person_outline"
+            app:startIconTint="@color/black"
+            style="@style/EditTextGrey">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textFieldLastName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Apellidos"
+                android:inputType="text"
+                android:textSize="13sp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                style="@style/EditTextGrey"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            app:startIconDrawable="@drawable/ic_phone_white"
+            app:startIconTint="@color/black"
+            style="@style/EditTextGrey">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textFieldPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Telefono"
+                android:inputType="phone"
+                android:textColorHint="@color/black"
+                android:textSize="13sp"
+                android:textColor="@color/black"
+                style="@style/EditTextGrey"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            app:startIconDrawable="@drawable/ic_car"
+            app:startIconTint="@color/black"
+            style="@style/EditTextGrey">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textFieldCarBrand"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Marca del vehiculo"
+                android:textColorHint="@color/black"
+                android:inputType="text"
+                android:textSize="13sp"
+                android:textColor="@color/black"
+                style="@style/EditTextGrey"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            app:startIconDrawable="@drawable/ic_color"
+            app:startIconTint="@color/black"
+            style="@style/EditTextGrey">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textFieldCarColor"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Color del vehiculo"
+                android:inputType="text"
+                android:textSize="13sp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/black"
+                style="@style/EditTextGrey"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            app:startIconDrawable="@drawable/ic_number"
+            app:startIconTint="@color/black"
+            style="@style/EditTextGrey">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textFieldCarPlate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Placa del vehiculo"
+                android:textColorHint="@color/black"
+                android:inputType="text"
+                android:textSize="13sp"
+                android:textColor="@color/black"
+                style="@style/EditTextGrey"/>
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnUpdate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ACTUALIZAR INFORMACION"
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/rounded_button"
+        />
+        
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "480424948429",
+    "project_id": "taxikotlin-fa7a1",
+    "storage_bucket": "taxikotlin-fa7a1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:480424948429:android:f823a571aba32e0f46af84",
+        "android_client_info": {
+          "package_name": "pe.idat.taxidriverkotlin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "480424948429-fr5pienges3r64dspca3gqnskpp47aoa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLhH1ogPlNZos-FaBDNFThIoPZxEW3J0U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "480424948429-fr5pienges3r64dspca3gqnskpp47aoa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:480424948429:android:8a8277200cd78cae46af84",
+        "android_client_info": {
+          "package_name": "pe.idat.taxikotlin"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "480424948429-fr5pienges3r64dspca3gqnskpp47aoa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLhH1ogPlNZos-FaBDNFThIoPZxEW3J0U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "480424948429-fr5pienges3r64dspca3gqnskpp47aoa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

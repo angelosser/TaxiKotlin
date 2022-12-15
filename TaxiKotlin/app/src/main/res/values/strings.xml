@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">TaxiKotlin</string>
+    <string name="google_maps_key">AIzaSyCEHQzhqWg-BCd4KYtR8lNOKYNG9fOGCoc</string>
+
 </resources>
