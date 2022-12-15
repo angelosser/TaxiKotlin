@@ -1,4 +1,4 @@
-package pe.idat.taxidriverkotlin.providers
+package pe.idat.taxikotlin.providers
 
 import android.net.Uri
 import android.util.Log
@@ -9,7 +9,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageTask
 import com.google.firebase.storage.UploadTask
-import pe.idat.taxidriverkotlin.models.Driver
+import pe.idat.taxikotlin.models.Driver
 import java.io.File
 
 class DriverProvider {

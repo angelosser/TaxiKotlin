@@ -1,4 +1,4 @@
-package pe.idat.taxidriverkotlin.fragments
+package pe.idat.taxikotlin.fragments
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,18 +8,19 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import pe.idat.taxidriverkotlin.R
-import pe.idat.taxidriverkotlin.activities.HistoriesActivity
-import pe.idat.taxidriverkotlin.activities.MainActivity
-import pe.idat.taxidriverkotlin.activities.ProfileActivity
-import pe.idat.taxidriverkotlin.models.Driver
-import pe.idat.taxidriverkotlin.providers.AuthProvider
-import pe.idat.taxidriverkotlin.providers.DriverProvider
+import pe.idat.taxikotlin.R
+import pe.idat.taxikotlin.activities.HistoriesActivity
+import pe.idat.taxikotlin.activities.MainActivity
+import pe.idat.taxikotlin.activities.ProfileActivity
+import pe.idat.taxikotlin.models.Client
+import pe.idat.taxikotlin.providers.AuthProvider
+import pe.idat.taxikotlin.providers.ClientProvider
+import pe.idat.taxikotlin.models.Driver
 
 class ModalBottomSheetMenu: BottomSheetDialogFragment() {
 
     private val authProvider = AuthProvider()
-    private val driverProvider = DriverProvider()
+    private val clientProvider = ClientProvider()
 
     var textViewUsername: TextView? = null
     var linearLayoutLogout: LinearLayout? = null
@@ -39,7 +40,7 @@ class ModalBottomSheetMenu: BottomSheetDialogFragment() {
         linearLayoutHistory = view.findViewById(R.id.linearLayoutHistory)
 
 
-        getDriver()
+        getClient()
         linearLayoutLogout?.setOnClickListener { goToMain() }
         linearLayoutProfile?.setOnClickListener { goToProfile() }
         linearLayoutHistory?.setOnClickListener { goToHistories() }
@@ -53,11 +54,11 @@ class ModalBottomSheetMenu: BottomSheetDialogFragment() {
         startActivity(i)
     }
 
-    private fun getDriver(){
-        driverProvider.getDriver(authProvider.getId()).addOnSuccessListener { document ->
+    private fun getClient(){
+        clientProvider.getClientById(authProvider.getId()).addOnSuccessListener { document ->
             if (document.exists()){
-                val driver = document.toObject(Driver::class.java)
-                textViewUsername?.text = "${driver?.name} ${driver?.lastName}"
+                val client = document.toObject(Client::class.java)
+                textViewUsername?.text = "${client?.name} ${client?.lastName}"
             }
         }
     }

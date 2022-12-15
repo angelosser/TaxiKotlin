@@ -38,6 +38,7 @@ import com.google.maps.android.SphericalUtil
 import org.imperiumlabs.geofirestore.callbacks.GeoQueryEventListener
 import pe.idat.taxikotlin.R
 import pe.idat.taxikotlin.databinding.ActivityMapBinding
+import pe.idat.taxikotlin.fragments.ModalBottomSheetMenu
 import pe.idat.taxikotlin.models.Booking
 import pe.idat.taxikotlin.models.DriverLocation
 import pe.idat.taxikotlin.providers.AuthProvider
@@ -69,6 +70,8 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, Listener {
     private val driverMarkers = ArrayList<Marker>()
     private val driversLocation = ArrayList<DriverLocation>()
 
+    private val modalMenu = ModalBottomSheetMenu()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -97,6 +100,7 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, Listener {
         removeBooking()
 
         binding.btnRequestTrip.setOnClickListener{goToTripInfo()}
+        binding.imageViewMenu.setOnClickListener { showModalMenu() }
     }
 
     val locationPermission = registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()){
@@ -117,6 +121,10 @@ class MapActivity : AppCompatActivity(), OnMapReadyCallback, Listener {
                 }
             }
         }
+    }
+
+    private fun showModalMenu(){
+        modalMenu.show(supportFragmentManager, ModalBottomSheetMenu.TAG)
     }
 
     private fun startGooglePlaces(){

@@ -1,4 +1,4 @@
-package pe.idat.taxidriverkotlin.models
+package pe.idat.taxikotlin.models
 
 // To parse the JSON, install Klaxon and do:
 //

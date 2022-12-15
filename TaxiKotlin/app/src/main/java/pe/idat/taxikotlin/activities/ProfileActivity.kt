@@ -1,4 +1,4 @@
-package pe.idat.taxidriverkotlin.activities
+package pe.idat.taxikotlin.activities
 
 import android.app.Activity
 import android.os.Bundle
@@ -10,10 +10,11 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.github.dhaval2404.imagepicker.ImagePicker
-import pe.idat.taxidriverkotlin.databinding.ActivityProfileBinding
-import pe.idat.taxidriverkotlin.models.Driver
-import pe.idat.taxidriverkotlin.providers.AuthProvider
-import pe.idat.taxidriverkotlin.providers.DriverProvider
+import pe.idat.taxikotlin.databinding.ActivityProfileBinding
+import pe.idat.taxikotlin.models.Client
+import pe.idat.taxikotlin.models.Driver
+import pe.idat.taxikotlin.providers.AuthProvider
+import pe.idat.taxikotlin.providers.ClientProvider
 import java.io.File
 
 class ProfileActivity : AppCompatActivity() {
@@ -21,7 +22,7 @@ class ProfileActivity : AppCompatActivity() {
     private lateinit var binding: ActivityProfileBinding
 
     private val authProvider = AuthProvider()
-    private val driverProvider = DriverProvider()
+    private val clientProvider = ClientProvider()
 
     private var imageFile: File? = null
 
@@ -31,7 +32,7 @@ class ProfileActivity : AppCompatActivity() {
         setContentView(binding.root)
         window.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS)
 
-        getDriver()
+        getClient()
         binding.imageViewBack.setOnClickListener { finish() }
         binding.btnUpdate.setOnClickListener { updateInfo() }
         binding.circleImageProfile.setOnClickListener{selectImage()}
@@ -41,26 +42,20 @@ class ProfileActivity : AppCompatActivity() {
         val name = binding.textFieldName.text.toString()
         val lastName = binding.textFieldLastName.text.toString()
         val phone = binding.textFieldPhone.text.toString()
-        val carBrand = binding.textFieldCarBrand.text.toString()
-        val carColor = binding.textFieldCarColor.text.toString()
-        val carPlate = binding.textFieldCarPlate.text.toString()
 
-        val driver = Driver(
+        val client = Client(
             id =  authProvider.getId(),
             name = name,
             lastName = lastName,
             phone = phone,
-            colorCar = carColor,
-            brandCar = carBrand,
-            plateNumber = carPlate
-            )
+        )
 
         if (imageFile != null){
-            driverProvider.uploadImage(authProvider.getId(), imageFile!!).addOnSuccessListener { taskSnapshot ->
-                driverProvider.getImageUrl().addOnSuccessListener { url ->
+            clientProvider.uploadImage(authProvider.getId(), imageFile!!).addOnSuccessListener { taskSnapshot ->
+                clientProvider.getImageUrl().addOnSuccessListener { url ->
                     val imageUrl = url.toString()
-                    driver.image = imageUrl
-                    driverProvider.update(driver).addOnCompleteListener {
+                    client.image = imageUrl
+                    clientProvider.update(client).addOnCompleteListener {
                         if (it.isSuccessful){
                             Toast.makeText(this@ProfileActivity, "Datos Actualizados Correctamente", Toast.LENGTH_LONG).show()
                         }else{
@@ -70,7 +65,7 @@ class ProfileActivity : AppCompatActivity() {
                     Log.d("STORAGE", "URL: $imageUrl")
                 }            }
         }else{
-            driverProvider.update(driver).addOnCompleteListener {
+            clientProvider.update(client).addOnCompleteListener {
                 if (it.isSuccessful){
                     Toast.makeText(this@ProfileActivity, "Datos Actualizados Correctamente", Toast.LENGTH_LONG).show()
                 }else{
@@ -83,21 +78,18 @@ class ProfileActivity : AppCompatActivity() {
 
     }
 
-    private fun getDriver(){
-        driverProvider.getDriver(authProvider.getId()).addOnSuccessListener { document ->
+    private fun getClient(){
+        clientProvider.getClientById(authProvider.getId()).addOnSuccessListener { document ->
             if (document.exists()){
-                val driver = document.toObject(Driver::class.java)
-                binding.textViewEmail.text = driver?.email
-                binding.textFieldName.setText(driver?.name)
-                binding.textFieldLastName.setText(driver?.lastName)
-                binding.textFieldPhone.setText(driver?.phone)
-                binding.textFieldCarBrand.setText(driver?.brandCar)
-                binding.textFieldCarColor.setText(driver?.colorCar)
-                binding.textFieldCarPlate.setText(driver?.plateNumber)
+                val client = document.toObject(Driver::class.java)
+                binding.textViewEmail.text = client?.email
+                binding.textFieldName.setText(client?.name)
+                binding.textFieldLastName.setText(client?.lastName)
+                binding.textFieldPhone.setText(client?.phone)
 
-                if (driver?.image != null){
-                    if (driver.image != ""){
-                        Glide.with(this).load(driver.image).into(binding.circleImageProfile)
+                if (client?.image != null){
+                    if (client.image != ""){
+                        Glide.with(this).load(client.image).into(binding.circleImageProfile)
                     }
                 }
             }
