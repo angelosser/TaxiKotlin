@@ -35,6 +35,7 @@ import com.google.firebase.firestore.ktx.toObject
 import pe.idat.taxikotlin.R
 import pe.idat.taxikotlin.databinding.ActivityMapBinding
 import pe.idat.taxikotlin.databinding.ActivityMapTripBinding
+import pe.idat.taxikotlin.fragments.ModalBottomSheetTripInfo
 import pe.idat.taxikotlin.models.Booking
 import pe.idat.taxikotlin.providers.AuthProvider
 import pe.idat.taxikotlin.providers.BookingProvider
@@ -71,6 +72,8 @@ class MapTripActivity : AppCompatActivity(), OnMapReadyCallback, Listener, Direc
     private var isDriverLocationFound = false
     private var isBookingLoaded = false
 
+    private var modalTrip = ModalBottomSheetTripInfo()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMapTripBinding.inflate(layoutInflater)
@@ -88,6 +91,9 @@ class MapTripActivity : AppCompatActivity(), OnMapReadyCallback, Listener, Direc
         }
 
         easyWayLocation = EasyWayLocation(this, locationRequest, false, false, this)
+
+        binding.imageViewInfo.setOnClickListener { showModalInfo() }
+
         locationPermission.launch(arrayOf(
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.ACCESS_COARSE_LOCATION
@@ -213,6 +219,18 @@ class MapTripActivity : AppCompatActivity(), OnMapReadyCallback, Listener, Direc
         val i = Intent(this, CalificationActivity::class.java)
         i.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         startActivity(i)
+    }
+
+    private fun showModalInfo(){
+
+        if (booking != null){
+            val bundle = Bundle()
+            bundle.putString("booking", booking?.toJson())
+            modalTrip.arguments = bundle
+            modalTrip.show(supportFragmentManager, ModalBottomSheetTripInfo.TAG)
+        }else{
+            Toast.makeText(this, "No se pudo cargar la informacion", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun easyDrawRoute(originLatLng: LatLng, destinationLatLng: LatLng){

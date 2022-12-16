@@ -34,6 +34,7 @@ import pe.idat.taxidriverkotlin.R
 import pe.idat.taxidriverkotlin.databinding.ActivityMapBinding
 import pe.idat.taxidriverkotlin.databinding.ActivityMapTripBinding
 import pe.idat.taxidriverkotlin.fragments.ModalBottomSheetBooking
+import pe.idat.taxidriverkotlin.fragments.ModalBottomSheetTripInfo
 import pe.idat.taxidriverkotlin.models.Booking
 import pe.idat.taxidriverkotlin.models.History
 import pe.idat.taxidriverkotlin.models.Prices
@@ -64,7 +65,6 @@ class MapTripActivity : AppCompatActivity(), OnMapReadyCallback, Listener, Direc
     private var WAY_POINT_TAG = "way_point_tag"
     private lateinit var directionUtil: DirectionUtil
 
-    private val modalBooking = ModalBottomSheetBooking()
 
     private var isLocationEnable = false
     private var isCloseToOrigin = false
@@ -75,6 +75,9 @@ class MapTripActivity : AppCompatActivity(), OnMapReadyCallback, Listener, Direc
     private var previousLocation = Location("")
     private var currentLocation = Location("")
     private var isStartedTrip = false
+
+    //modal
+    private var modalTrip = ModalBottomSheetTripInfo()
 
 
 
@@ -101,18 +104,6 @@ class MapTripActivity : AppCompatActivity(), OnMapReadyCallback, Listener, Direc
             startTimer()
     }
 
-    private val timer = object: CountDownTimer(20000, 1000){
-        override fun onTick(counter: Long) {
-            Log.d("TIMER", "Counter: $counter")
-        }
-
-        override fun onFinish() {
-            Log.d("TIMER", "On finish")
-            modalBooking.dismiss()
-        }
-
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMapTripBinding.inflate(layoutInflater)
@@ -137,6 +128,8 @@ class MapTripActivity : AppCompatActivity(), OnMapReadyCallback, Listener, Direc
 
         binding.btnStartTrip.setOnClickListener { updateToStarted() }
         binding.btnFinishTrip.setOnClickListener { updateToFinish() }
+        binding.imageViewInfo.setOnClickListener { showModalInfo() }
+
 //        binding.btnConnect.setOnClickListener{connectDriver()}
 //        binding.btnDisconnect.setOnClickListener{disconnectDriver()}
 
@@ -159,6 +152,18 @@ class MapTripActivity : AppCompatActivity(), OnMapReadyCallback, Listener, Direc
 
                 }
             }
+        }
+    }
+
+    private fun showModalInfo(){
+
+        if (booking != null){
+            val bundle = Bundle()
+            bundle.putString("booking", booking?.toJson())
+            modalTrip.arguments = bundle
+            modalTrip.show(supportFragmentManager, ModalBottomSheetTripInfo.TAG)
+        }else{
+            Toast.makeText(this, "No se pudo cargar la informacion", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -225,17 +230,6 @@ class MapTripActivity : AppCompatActivity(), OnMapReadyCallback, Listener, Direc
             .build()
 
         directionUtil.initPath()
-    }
-
-    private fun showModalBooking(booking: Booking){
-
-        val bundle = Bundle()
-        bundle.putString("booking", booking.toJson())
-        modalBooking.arguments = bundle
-
-
-        modalBooking.show(supportFragmentManager, ModalBottomSheetBooking.TAG)
-        timer.start()
     }
 
     private fun saveLocation(){
